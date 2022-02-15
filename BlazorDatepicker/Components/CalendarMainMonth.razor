@@ -9,10 +9,10 @@
 
         @for(int i = 0; i < CalendarState.Value.DayList.Count; i+=7)
         {
-            <div class="">
+            <div>
                 @for(int j = i; j < i+7 && j < CalendarState.Value.DayList.Count; j++ )
                 {
-                    <CellDay DateTime="CalendarState.Value.DayList[j]"></CellDay>
+                    <CellDay DateTime="CalendarState.Value.DayList[j]" IsSelected="@(CalendarState.Value.DayList[j] == CalendarState.Value.FinalSelectedValue)"></CellDay>
                 }
             </div>
                

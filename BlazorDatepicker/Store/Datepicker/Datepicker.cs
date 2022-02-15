@@ -15,7 +15,7 @@ namespace BlazorDatepicker.Store.Datepicker
 		public CalendarViewMode CurrentCalendarViewMode { get; } 
 		public DateTime CurrentSelectedValue { get; }
 
-		public string FinalSelectedValue { get; }
+		public DateTime FinalSelectedValue { get; }
 
 		public int DecadeBegin { get; }
 		public int DecadeEnd { get; }
@@ -26,7 +26,7 @@ namespace BlazorDatepicker.Store.Datepicker
 		public DatepickerState() {
 			CurrentCalendarViewMode = CalendarViewMode.Month;
 			CurrentSelectedValue = DateTime.Now;
-            FinalSelectedValue = "";
+            FinalSelectedValue = new DateTime();
             int year = CurrentSelectedValue.Year;
 
             DecadeBegin = (int)(Math.Floor(year / 10.0d) * 10);
@@ -68,7 +68,7 @@ namespace BlazorDatepicker.Store.Datepicker
 		{
 			CurrentCalendarViewMode = currentCalendarViewMode;
 			CurrentSelectedValue = currentModeValue;
-			FinalSelectedValue = "";
+			FinalSelectedValue = new DateTime();
 			int year = CurrentSelectedValue.Year;
 
 			DecadeBegin = (int)(Math.Floor(year / 10.0d) * 10);
@@ -108,7 +108,7 @@ namespace BlazorDatepicker.Store.Datepicker
 			}
 		}
 
-		public DatepickerState(CalendarViewMode currentCalendarViewMode, DateTime currentModeValue, string finalSelectedValue)
+		public DatepickerState(CalendarViewMode currentCalendarViewMode, DateTime currentModeValue, DateTime finalSelectedValue)
 		{
 			CurrentCalendarViewMode = currentCalendarViewMode;
 			CurrentSelectedValue = currentModeValue;
@@ -133,13 +133,13 @@ namespace BlazorDatepicker.Store.Datepicker
 			var firstDayIndex = 0;
 			var isFirstDayOfMonthEqualSunday = firstDayOfMonth.DayOfWeek == DayOfWeek.Sunday;
 			while (!isFirstDayOfMonthEqualSunday)
-			{
+            {
 				firstDayOfMonth = firstDayOfMonth.AddDays(-1);
 				firstDayIndex--;
 				isFirstDayOfMonthEqualSunday = firstDayOfMonth.DayOfWeek == DayOfWeek.Sunday;
 			}
 			var lastDayIndex = dayDiff;
-			for (int i = 0; i < dayDiff - firstDayIndex; i++)
+			for (int i = firstDayIndex; i < dayDiff; i++)
 			{
 				DayList.Add(firstDayOfMonth.AddDays(i));
 			}
@@ -217,8 +217,8 @@ namespace BlazorDatepicker.Store.Datepicker
 
 	public class ChangeCalendarFinalSelectedValueAction
     {
-		public string FinalSelectedValue { get; }
-		public ChangeCalendarFinalSelectedValueAction(string finalSelectedValue)
+		public DateTime FinalSelectedValue { get; }
+		public ChangeCalendarFinalSelectedValueAction(DateTime finalSelectedValue)
         {
 			FinalSelectedValue = finalSelectedValue;
         }

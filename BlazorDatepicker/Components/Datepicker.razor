@@ -1,7 +1,10 @@
 ﻿@using BlazorDatepicker.Store.Datepicker
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 <div class=datepicker-container >
-    @CalendarState.Value.FinalSelectedValue
+    @if(CalendarState.Value.FinalSelectedValue != default(DateTime))
+    {
+        @CalendarState.Value.FinalSelectedValue.ToString("MM/dd/yyyy")
+    }
         <input type="text" @ref="datePickerInput" @onfocus="ShowCalendar" @onactivate="ChangeCalendarDisplay"/>
         <button class="button button-primary" @onclick="FocusInput">
             <span class="material-icons">
@@ -23,8 +26,6 @@
     private IState<DatepickerState> CalendarState { get; set; }
 
     ElementReference datePickerInput;
-    [Parameter]
-    public string InputText { get; set; }
 
     private bool isCalenderShown { get; set; } = false;
 
