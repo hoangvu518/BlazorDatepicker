@@ -38,14 +38,6 @@ namespace BlazorDatepicker.Store.Datepicker
                 MonthList.Add(new DateTime(CurrentSelectedValue.Year, i, 1));
             }
 
-			//DayList = new List<DateTime>();
-			//var firstDayOfMonth = new DateTime(CurrentSelectedValue.Year, CurrentSelectedValue.Month, 1);
-			//var lastDateOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-			//var dayDiff = (lastDateOfMonth - firstDayOfMonth).Days + 1;
-			//for (int i = 0; i < dayDiff; i++)
-			//{
-			//    DayList.Add(firstDayOfMonth.AddDays(i));
-			//}
 			DayList = new List<DateTime>();
 			var firstDayOfMonth = new DateTime(CurrentSelectedValue.Year, CurrentSelectedValue.Month, 1);
 			var lastDateOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
@@ -58,8 +50,8 @@ namespace BlazorDatepicker.Store.Datepicker
 				firstDayIndex--;
 				isFirstDayOfMonthEqualSunday = firstDayOfMonth.DayOfWeek == DayOfWeek.Sunday;
 			}
-			var lastDayIndex = dayDiff;
-			for (int i = 0; i < dayDiff - firstDayIndex; i++)
+			var lastDayIndex = dayDiff - firstDayIndex;
+			for (int i = 0; i < lastDayIndex; i++)
 			{
 				DayList.Add(firstDayOfMonth.AddDays(i));
 			}
@@ -101,8 +93,8 @@ namespace BlazorDatepicker.Store.Datepicker
 				firstDayIndex--;
 				isFirstDayOfMonthEqualSunday = firstDayOfMonth.DayOfWeek == DayOfWeek.Sunday;
 			}
-			var lastDayIndex = dayDiff;
-			for (int i = 0; i < dayDiff - firstDayIndex; i++)
+			var lastDayIndex = dayDiff - firstDayIndex;
+			for (int i = 0; i < lastDayIndex; i++)
 			{
 				DayList.Add(firstDayOfMonth.AddDays(i));
 			}
@@ -138,8 +130,8 @@ namespace BlazorDatepicker.Store.Datepicker
 				firstDayIndex--;
 				isFirstDayOfMonthEqualSunday = firstDayOfMonth.DayOfWeek == DayOfWeek.Sunday;
 			}
-			var lastDayIndex = dayDiff;
-			for (int i = firstDayIndex; i < dayDiff; i++)
+			var lastDayIndex = dayDiff - firstDayIndex;
+			for (int i = 0; i < lastDayIndex; i++)
 			{
 				DayList.Add(firstDayOfMonth.AddDays(i));
 			}
