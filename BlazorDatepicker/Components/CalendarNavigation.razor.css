@@ -1,0 +1,8 @@
+﻿.calendar-navigation-container{
+    display: flex;
+    align-items: center;
+}
+
+.spacer{
+    flex-grow: 1;
+}

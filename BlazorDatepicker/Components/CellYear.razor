@@ -1,0 +1,29 @@
+﻿@using BlazorDatepicker.Store.Datepicker
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+<button type="button" @onclick="ChangeViewMode" class="@ButtonClass() calendar-cell">
+    @Year
+</button>
+
+@code {
+	[Parameter]
+	public int Year { get; set; }
+
+	[Inject]
+	public IDispatcher Dispatcher { get; set; }
+
+	[Inject]
+	private IState<DatepickerState> CalendarState { get; set; }
+
+	private void ChangeViewMode()
+	{
+		DateTime myDateTime = new DateTime(Year, CalendarState.Value.CurrentSelectedValue.Month, CalendarState.Value.CurrentSelectedValue.Day);
+		var newViewMode = CalendarViewMode.Year;
+		var changeModeViewAndValueAction = new ChangeCalendarViewModeAndValueAction(newViewMode, myDateTime);
+		Dispatcher.Dispatch(changeModeViewAndValueAction);
+	}
+
+	private string ButtonClass()
+	{
+		return DateTime.Now.Year == Year ? "button-active" : "";
+	}
+}

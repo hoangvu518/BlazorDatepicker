@@ -1,0 +1,12 @@
+﻿@using BlazorDatepicker.Store.Datepicker
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+<div class="calendar-container">
+    <CalendarTop></CalendarTop>
+    <CalendarNavigation></CalendarNavigation>
+    <CalendarMain></CalendarMain>
+</div>
+
+@code {
+		[Inject]
+		private IState<DatepickerState> CalendarState { get; set; }
+}

@@ -1,0 +1,39 @@
+﻿@using BlazorDatepicker.Store.Datepicker
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+<button @onclick="ChangeViewMode">
+    @switch (CalendarState.Value.CurrentCalendarViewMode)
+    {
+        case CalendarViewMode.Decade:
+            <span>
+              @CalendarState.Value.DecadeBegin - @CalendarState.Value.DecadeEnd
+            </span>
+            break;
+        case CalendarViewMode.Year:
+            <span>
+                @CalendarState.Value.CurrentSelectedValue.ToString("yyyy")
+            </span>
+            break;
+        case CalendarViewMode.Month:
+            <span>
+                @CalendarState.Value.CurrentSelectedValue.ToString("MMMM yyyy")
+            </span>
+            break;
+        default:
+            return;
+    }
+</button>
+
+@code {
+    [Inject]
+    private IState<DatepickerState> CalendarState { get; set; }
+
+    [Inject]
+	public IDispatcher Dispatcher { get; set; }
+
+	private void ChangeViewMode()
+	{
+		var action = new ChangeCalendarViewModeAction();
+		Dispatcher.Dispatch(action);
+	}
+
+}

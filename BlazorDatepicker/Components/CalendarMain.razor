@@ -1,0 +1,24 @@
+﻿@using BlazorDatepicker.Store.Datepicker
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+<div class="calendar-main-container">
+    @switch (CalendarState.Value.CurrentCalendarViewMode)
+    {
+        case CalendarViewMode.Decade:
+            <CalendarMainDecade></CalendarMainDecade>
+            break;
+        case CalendarViewMode.Year:
+            <CalendarMainYear></CalendarMainYear>
+            break;
+        case CalendarViewMode.Month:
+            <CalendarMainMonth></CalendarMainMonth>
+            break;
+        default:
+            return;
+    }
+</div>
+
+@code {
+    [Inject]
+    public IState<DatepickerState> CalendarState { get; set; }
+
+}

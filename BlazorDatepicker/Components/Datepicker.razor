@@ -1,0 +1,51 @@
+﻿@using BlazorDatepicker.Store.Datepicker
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+<div class=datepicker-container >
+    @CalendarState.Value.FinalSelectedValue
+        <input type="text" @ref="datePickerInput" @onfocus="ShowCalendar" @onactivate="ChangeCalendarDisplay"/>
+        <button class="button button-primary" @onclick="FocusInput">
+            <span class="material-icons">
+            calendar_month
+            </span>
+        </button>
+        @if(isCalenderShown)
+        {   
+            <Calendar></Calendar>
+        }
+</div>
+
+@code {
+
+
+
+
+    [Inject]
+    private IState<DatepickerState> CalendarState { get; set; }
+
+    ElementReference datePickerInput;
+    [Parameter]
+    public string InputText { get; set; }
+
+    private bool isCalenderShown { get; set; } = false;
+
+    private async Task FocusInput()
+    {
+        await datePickerInput.FocusAsync();
+    }
+
+    private void ChangeCalendarDisplay()
+    {
+        isCalenderShown = !isCalenderShown;
+    }
+
+    private void ShowCalendar()
+    {
+        isCalenderShown = true;
+    }
+
+    private void HideCalendar()
+    {
+        isCalenderShown = false;
+    }
+
+}

@@ -1,0 +1,40 @@
+﻿@using BlazorDatepicker.Store.Datepicker
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+<button type="button" @onclick="ChangeModeValue">
+    <span class="material-icons">
+        arrow_downward
+    </span>
+</button>
+
+@code {
+    [Inject]
+    private IState<DatepickerState> CalendarState { get; set; }
+
+    [Inject]
+    public IDispatcher Dispatcher { get; set; }
+
+    public void ChangeModeValue()
+    {
+        var currentDateTime = CalendarState.Value.CurrentSelectedValue;
+        DateTime myDateTime;
+        switch (CalendarState.Value.CurrentCalendarViewMode)
+        {
+            case CalendarViewMode.Decade:
+                myDateTime = currentDateTime.AddYears(10);
+                break;
+            case CalendarViewMode.Year:
+                myDateTime = currentDateTime.AddYears(1);
+                break;
+            case CalendarViewMode.Month:
+                myDateTime = currentDateTime.AddMonths(1);
+                break;
+            default:
+                return;
+
+        }
+        var action = new ChangeCalendarModeValueAction(myDateTime);
+        Dispatcher.Dispatch(action);
+    }
+}
+
+

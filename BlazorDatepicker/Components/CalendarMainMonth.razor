@@ -1,0 +1,41 @@
+﻿@using BlazorDatepicker.Store.Datepicker
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+<div class="calendar-main-month-container">
+         <div class="calendar-row">
+        @foreach(var day in DaysOfWeek){
+            <span class="calendar-cell">@day</span>
+        }    
+        </div>
+
+        @for(int i = 0; i < CalendarState.Value.DayList.Count; i+=7)
+        {
+            <div class="">
+                @for(int j = i; j < i+7 && j < CalendarState.Value.DayList.Count; j++ )
+                {
+                    <CellDay DateTime="CalendarState.Value.DayList[j]"></CellDay>
+                }
+            </div>
+               
+        }
+</div>
+
+@code {
+    [Inject]
+    public IState<DatepickerState> CalendarState { get; set; }
+
+    public List<string> DaysOfWeek { get; set; } = new List<string>()
+    {
+        "Su",
+        "Mo",
+        "Tu",
+        "We",
+        "Th",
+        "Fr",
+        "Sa"
+    };
+
+    //public void LineBreakIncrement()
+    //{
+    //    LineBreakNumber++;
+    //}
+}

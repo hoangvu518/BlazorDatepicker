@@ -1,0 +1,21 @@
+﻿@using BlazorDatepicker.Store.Datepicker
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+<div class="calendar-main-year-container">
+    @for(int i = 0; i < CalendarState.Value.MonthList.Count; i+=4)
+    {
+        <div class="calendar-row">
+
+            @for(int j = i; j < i +4; j++)
+            {
+                <CellMonth DateTime="CalendarState.Value.MonthList[j]"></CellMonth>
+            }
+        </div>
+
+    }
+</div>
+
+@code {
+    [Inject]
+    public IState<DatepickerState> CalendarState { get; set; }
+
+}

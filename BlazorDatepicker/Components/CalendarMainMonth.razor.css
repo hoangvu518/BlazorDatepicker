@@ -1,0 +1,4 @@
+﻿.calendar-main-month-container {
+    display: flex;
+    flex-direction: column;
+}

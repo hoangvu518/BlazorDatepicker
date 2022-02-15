@@ -1,0 +1,21 @@
+﻿@using System.Timers;
+<div class="calendar-top-container">
+    <div>
+        @CurrentDateTime.ToString("H:mm:ss")
+    </div>
+    <div>
+        @CurrentDateTime.ToString("MMMM dd, yyyy")
+    </div>
+</div>
+
+@code {
+    public DateTime CurrentDateTime { get; set; } = DateTime.Now;
+    protected override async Task OnInitializedAsync()
+    {
+        Timer timer = new Timer(1000);
+        timer.Elapsed += async (s, e) => { 
+                                    CurrentDateTime = DateTime.Now; 
+                                    await InvokeAsync(StateHasChanged); };
+        timer.Start();
+    }
+}

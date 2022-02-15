@@ -1,0 +1,16 @@
+﻿.datepicker-container{
+    display:flex;
+    align-items: center;
+    border: green solid 1px;
+}
+
+.button{
+    display:flex;
+    align-items: center;
+}
+
+.button.button-primary {
+    background-color: #3c62cc;
+    color: white;
+}
+
